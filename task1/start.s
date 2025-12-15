@@ -71,7 +71,7 @@ main:
     xor     edi, edi       ; loop counter i = 0
 
 arg_loop:
-    cmp     edi, ecx
+    cmp     edi, dword [ebp+8]
     jge     encode_start   ; if i >= argc, start encoding
 
     ; Get argv[i]
@@ -79,11 +79,9 @@ arg_loop:
     
     ; Print argument to stderr (Task 1.A "debug printout")
     ; Calculate length
-    push    ecx             ; Save argc
     push    ebx             ; Push string pointer for strlen
     call    strlen
     add     esp, 4
-    pop     ecx             ; Restore argc
 
     ; Write(2, argv[i], len)
     mov     edx, eax        ; length
